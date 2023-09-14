@@ -1,7 +1,7 @@
 class LoginsController < ApplicationController
   def new
     user = User.find_by(id: session[:user_id])
-    redirect_to dashboards_path if user
+    redirect_to posts_path if user
     @user = User.new
   end
 
@@ -13,8 +13,13 @@ class LoginsController < ApplicationController
       redirect_to dashboards_path
     else
       flash[:alert] = "Email or password is invalid!"
-      rendre :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path, notice: "You have been logged out!"
   end
 
   private

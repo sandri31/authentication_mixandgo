@@ -1,0 +1,9 @@
+<h1><%= @post.title %></h1>
+<p>By <%= @post.user.email %></p>
+<p><%= @post.body %></p>
+
+<% if session[:user_id] == @post.user_id %>
+  <%= link_to "Edit", edit_post_path(@post) %> |
+<% end %>
+
+<%= link_to "Return to posts", posts_path %>
